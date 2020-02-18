@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+data=pd.read_csv("/home/chaitanya/chaitanya/ML/K_Means/K_Means/Mall_Customers.csv")
+
+x=data.iloc[:,[3,4]].values
+from sklearn.cluster import KMeans
+wscc=[]
+for i in range(1,15):
+    kmeans=KMeans(n_clusters=i,init="k-means++",max_iter=300,n_init=10,random_state=0)
+    kmeans.fit(x)
+    wscc.append(kmeans.inertia_)
+    
+plt.plot(range(1,15),wscc)
+kmeans = KMeans(n_clusters = 4, init = 'k-means++', random_state = 42)
+y_kmeans = kmeans.fit_predict(x)
+
+plt.scatter(x[y_kmeans == 0, 0],x[y_kmeans == 0, 1],s = 100, c = 'red', label = 'Cluster 1')
+
+plt.scatter(x[ymeans==1,0],x[ymeans==1,1],s=100,c="red",label="lab1")
+plt.scatter(x[ymeans==2,0],x[ymeans==2,1],s=100,c="blue",label="lab2")
+plt.scatter(x[ymeans==3,0],x[ymeans==3,1],s=100,c="green",label="lab3")
+plt.scatter(x[ymeans==4,0],x[ymeans==4,1],s=100,c="cyan",label="lab4")
+plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s = 300, c = 'yellow', label = 'Centroids')
+
+plt.legend()
+plt.show()
